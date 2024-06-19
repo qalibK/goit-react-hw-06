@@ -82,7 +82,7 @@ p {
   border-radius: 10px;
 }
 
-@keyframes glowing-btn {
+@keyframes glowing-add_button {
   0% {
     background-position: 0 0;
   }
