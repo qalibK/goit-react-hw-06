@@ -2,10 +2,10 @@ import { Formik, Field, ErrorMessage } from "formik";
 import css from "./ContactForm.module.css";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactSlice";
+import { addContact } from "../../redux/contactsSlice";
 
 export default function ContactForm() {
-  const contacts = useSelector((state) => state.contacts.contacts);
+  const contacts = useSelector((state) => state.contacts.items);
   const dispatch = useDispatch();
 
   const checkingUniqueNames = (name) => {

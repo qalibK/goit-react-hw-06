@@ -1,43 +1,26 @@
 import css from "./ContactList.module.css";
-import { IoPerson, IoCall } from "react-icons/io5";
-import { deleteContact } from "../../redux/contactSlice";
+import { deleteContact } from "../../redux/contactsSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Contact from "../Contact/Contact";
 
 export default function ContactList() {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.contacts);
-  const filtredValue = useSelector((state) => state.contacts.filter);
+  const contacts = useSelector((state) => state.contacts.items);
+  const filter = useSelector((state) => state.filters.name);
 
   const deleteContactById = (id) => {
     dispatch(deleteContact(id));
   };
 
-  const validFilter = filtredValue.trim().toLowerCase();
   const visibleContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(validFilter)
+    contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
     <ul className={css.list}>
       {visibleContacts.map((contact) => (
         <li key={contact.id} className={css.contact}>
-          <div className={css.left}>
-            <div className={css.info}>
-              <IoPerson />
-              <p>{contact.name}</p>
-            </div>
-            <div className={css.info}>
-              <IoCall />
-              <p>{contact.number}</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => deleteContactById(contact.id)}
-            className={css.btn}
-          >
-            Delete
-          </button>
+          <Contact contact={contact} deleteContactById={deleteContactById} />
         </li>
       ))}
     </ul>
